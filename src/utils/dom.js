@@ -15,6 +15,8 @@ export function html(templates, ...props) {
 
   while (i < len) {
     str = raw[i];
+    str = str.replace(/\s+/g, " ");
+    str = str.replace(/<!--.*?-->/g, "");
     if (typeof props[i] === "function") {
       const id = `reactive-${++reactiveIndex}`;
       reactiveFns.set(id, props[i]);
