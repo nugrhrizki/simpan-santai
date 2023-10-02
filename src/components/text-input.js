@@ -1,4 +1,4 @@
-import { html } from "../utils/dom";
+import { html } from "../lib/dom";
 
 export function TextInput({
   id,

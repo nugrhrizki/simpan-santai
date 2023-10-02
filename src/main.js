@@ -1,9 +1,9 @@
 import { TextInput } from "./components/text-input";
 import "./styles/index.css";
-import { html, listen, onMount, render, setValue } from "./utils/dom";
+import { html, listen, onMount, render, setValue } from "./lib/dom";
 import { formatNumber, mask, normalizeNumber } from "./utils/format";
 import { ceilTo500 } from "./utils/math";
-import { createEffect, createSignal } from "./utils/signal";
+import { createEffect, createSignal } from "./lib/signal";
 
 function Hasil({ label, target, bulan }) {
   return html`
