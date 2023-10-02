@@ -1,0 +1,41 @@
+:root {
+  --primary: #ffb300;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.my-8 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.pre-input,
+.post-input {
+  padding: 0 1em;
+  background: #f5f5f5;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.pre-input {
+  border-radius: 0.5em 0 0 0.5em;
+}
+
+.post-input {
+  border-radius: 0 0.5em 0.5em 0;
+}

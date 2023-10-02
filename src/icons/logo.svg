@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" >
+  <circle cx="100" cy="100" r="80" fill="#f0a500" />
+  <circle cx="100" cy="100" r="60" fill="#ffd700" />
+  <circle cx="100" cy="100" r="45" fill="#f0a500" />
+  <path d="M80 50 L60 85 L75 85 L75 120 L125 120 L125 85 L140 85 Z" fill="#008000" />
+  <path d="M120 85 L105 85 L105 120 L95 120 L95 85 L80 85 L100 50 Z" fill="#008000" />
+  <text x="35" y="110" fill="white" font-size="40" font-weight="bold">Simpan</text>
+  <text x="45" y="140" fill="white" font-size="34" font-weight="bold">Santai</text>
+</svg>
