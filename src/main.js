@@ -33,10 +33,10 @@ onMount(() => {
   });
 });
 
-function Hasil() {
+function Hasil({ label, children }) {
   return html`
     <label for="bulan">
-      Jumlah yang perlu ditabung jika ingin mendapatkan Rp.
+      ${label} jika ingin mendapatkan Rp.
       ${() => formatNumber(target().toString())} dalam
       ${() => formatNumber(bulan().toString())} bulan:
       <div class="flex w-full">
@@ -44,7 +44,12 @@ function Hasil() {
         <input id="hasil" />
       </div>
     </label>
+    ${children()}
   `;
+}
+
+function Anak() {
+  return html`<p>Aku adalah anak</p>`;
 }
 
 function App() {
@@ -71,7 +76,10 @@ function App() {
           </div>
         </label>
       </div>
-      ${Hasil()}
+      ${Hasil({
+        label: "Jumlah yang perlu ditabung",
+        children: Anak,
+      })}
     </div>
   `;
 }
