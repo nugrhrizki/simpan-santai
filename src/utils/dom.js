@@ -65,23 +65,29 @@ function createDOM(html) {
 }
 
 export function render(element, target, options = "append") {
-  if (typeof target === "string") {
-    target = document.querySelector(target);
-  }
-  if (target === null) return;
-  if (options === "append") {
-    target.appendChild(element);
-  } else if (options === "prepend") {
-    target.prepend(element);
-  } else if (options === "replace") {
-    target.replaceWith(element);
-  } else if (options === "before") {
-    target.before(element);
-  } else if (options === "after") {
-    target.after(element);
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof target === "string") {
+      target = document.querySelector(target);
+    }
 
-  document.dispatchEvent(new Event("html:loaded"));
+    if (target === null) {
+      return;
+    }
+
+    if (options === "append") {
+      target.appendChild(element);
+    } else if (options === "prepend") {
+      target.prepend(element);
+    } else if (options === "replace") {
+      target.replaceWith(element);
+    } else if (options === "before") {
+      target.before(element);
+    } else if (options === "after") {
+      target.after(element);
+    }
+
+    document.dispatchEvent(new Event("html:loaded"));
+  });
 }
 
 export function onMount(fn) {
@@ -92,7 +98,9 @@ export function listen(target, event, fn) {
   if (typeof target === "string") {
     target = document.querySelectorAll(target);
   }
-  if (target === null) return;
+  if (target === null) {
+    return;
+  }
   for (const el of target) el.addEventListener(event, fn);
 }
 
@@ -100,6 +108,8 @@ export function setValue(target, value) {
   if (typeof target === "string") {
     target = document.querySelectorAll(target);
   }
-  if (target === null) return;
+  if (target === null) {
+    return;
+  }
   for (const el of target) el.value = value;
 }
