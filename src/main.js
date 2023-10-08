@@ -1,19 +1,18 @@
 import { TextInput } from "./components/text-input";
 import "./styles/index.css";
-import { html, listen, onMount, render, setValue } from "./lib/dom";
+import { html, render } from "./lib/dom";
 import { formatNumber, mask, normalizeNumber } from "./utils/format";
 import { ceilTo500 } from "./utils/math";
 import { createEffect, createSignal } from "./lib/signal";
 
-function Hasil({ label, target, bulan }) {
+function Hasil({ label, value }) {
   return html`
     ${TextInput({
-      label: html`${label} jika ingin mendapatkan Rp.
-      ${() => formatNumber(target().toString())} dalam
-      ${() => formatNumber(bulan().toString())} bulan:`,
+      label,
       id: "hasil",
       placeholder: "Hasil",
       pre: "Rp",
+      value,
     })}
   `;
 }
@@ -21,31 +20,14 @@ function Hasil({ label, target, bulan }) {
 function App() {
   const [target, setTarget] = createSignal(0);
   const [bulan, setBulan] = createSignal(0);
-  const [hasil, setHasil] = createSignal(undefined);
+  const [hasil, setHasil] = createSignal("");
 
   createEffect(() => {
     if (!isNaN(target()) && !isNaN(bulan()) && bulan() > 0) {
-      setHasil(parseInt(target() / bulan()));
+      setHasil(
+        formatNumber(ceilTo500(parseInt(target() / bulan())).toString()),
+      );
     }
-  });
-
-  function handleInputTarget(e) {
-    setTarget(normalizeNumber(e.target.value));
-    mask(e.target, formatNumber);
-  }
-
-  function handleInputBulan(e) {
-    setBulan(normalizeNumber(e.target.value));
-    mask(e.target, formatNumber);
-  }
-
-  onMount(() => {
-    listen("#target", "input", handleInputTarget);
-    listen("#bulan", "input", handleInputBulan);
-
-    createEffect(() => {
-      setValue("#hasil", formatNumber(ceilTo500(hasil()).toString()));
-    });
   });
 
   return html`
@@ -54,6 +36,10 @@ function App() {
       <div class="grid">
         ${TextInput({
           placeholder: "Target",
+          onInput(e) {
+            setTarget(normalizeNumber(e.target.value));
+            mask(e.target, formatNumber);
+          },
           label: "Target Akhir Tabungan:",
           id: "target",
           pre: "Rp",
@@ -61,14 +47,19 @@ function App() {
         ${TextInput({
           placeholder: "Bulan",
           label: "Bulan:",
+          onInput(e) {
+            setBulan(normalizeNumber(e.target.value));
+            mask(e.target, formatNumber);
+          },
           id: "bulan",
           post: "Bulan",
         })}
       </div>
       ${Hasil({
-        label: "Jumlah yang perlu ditabung",
-        target,
-        bulan,
+        label: html`Jumlah yang perlu ditabung jika ingin mendapatkan Rp.
+        ${() => formatNumber(target().toString())} dalam
+        ${() => formatNumber(bulan().toString())} bulan:`,
+        value: hasil,
       })}
     </div>
   `;

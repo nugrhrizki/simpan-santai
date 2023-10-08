@@ -5,6 +5,8 @@ export function TextInput({
   label,
   type = "text",
   placeholder,
+  onInput,
+  value,
   pre,
   post,
 }) {
@@ -12,7 +14,13 @@ export function TextInput({
     ${label}
     <div class="flex w-full">
       ${pre ? html`<div class="pre-input">${pre}</div>` : ""}
-      <input type="${type}" placeholder="${placeholder || ""}" id="${id}" />
+      <input
+        :value=${value}
+        type="${type}"
+        @input=${onInput}
+        placeholder="${placeholder || ""}"
+        id="${id}"
+      />
       ${post ? html`<div class="post-input">${post}</div>` : ""}
     </div>
   </label>`;
