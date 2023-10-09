@@ -17,8 +17,6 @@ export function html(templates, ...props) {
     str,
     variable;
 
-  console.log(raw, props);
-
   while (i < len) {
     str = raw[i];
     str = str.replace(/\s+/g, " ");
@@ -94,7 +92,8 @@ function createDOM(html) {
     if (reactiveFns.has(id)) {
       const fn = reactiveFns.get(id);
       const textNode = document.createTextNode(fn());
-      reactive.parentNode.replaceChild(textNode, reactive);
+      const parent = reactive.parentNode;
+      parent.replaceChild(textNode, reactive);
       createEffect(() => {
         textNode.textContent = fn();
       });
