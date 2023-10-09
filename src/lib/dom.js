@@ -127,6 +127,10 @@ function createDOM(html) {
       let { prop, value } = reactiveProps.get(id);
       createEffect(() => {
         reactivePropElement[prop] = value();
+
+        if (typeof value() === "boolean") {
+          reactivePropElement.setAttribute(prop, value());
+        }
       });
     }
   }

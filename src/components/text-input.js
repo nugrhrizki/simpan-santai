@@ -9,6 +9,7 @@ export function TextInput({
   value,
   pre,
   post,
+  readonly,
 }) {
   return html`<label for="${id}">
     ${label}
@@ -20,6 +21,7 @@ export function TextInput({
         @input=${onInput}
         placeholder="${placeholder || ""}"
         id="${id}"
+        :readonly=${readonly}
       />
       ${post ? html`<div class="post-input">${post}</div>` : ""}
     </div>

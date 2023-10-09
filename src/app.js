@@ -48,6 +48,9 @@ export function App() {
         ${() => formatNumber(target().toString())} dalam
         ${() => formatNumber(bulan().toString())} bulan:`,
         value: hasil,
+        readonly() {
+          return true;
+        },
       })}
     </div>
   `;
